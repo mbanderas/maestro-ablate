@@ -6,9 +6,15 @@ import os from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-/** Directories never worth walking into. */
+/**
+ * Directories never worth walking into.
+ *
+ * `worktrees` and `.workshop-worktrees` matter more than the rest: a git worktree
+ * contains a second checkout of the same skills, and counting those copies both
+ * inflates every total and puts phantom duplicates in the ranking.
+ */
 export const SKIP_DIRS = new Set([
-  'node_modules', '.workshop-worktrees', '.git', '.cache', 'dist', 'build',
+  'node_modules', 'worktrees', '.workshop-worktrees', '.git', '.cache', 'dist', 'build',
 ]);
 
 /** This skill's own root (the repo root, since the repo *is* the skill). */

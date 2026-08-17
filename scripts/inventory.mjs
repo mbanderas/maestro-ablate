@@ -86,10 +86,24 @@ for (const { file, root, isPlugin } of bySource.values()) {
 rows.sort((a, b) => b.rank - a.rank || b.lines - a.lines || a.name.localeCompare(b.name));
 const shown = argv.top ? rows.slice(0, Number(argv.top)) : rows;
 
+// Distinct files sharing one skill name. Not the same as a link alias: these are
+// separate copies that have drifted, which is a finding in its own right -- only
+// one of them is the version that actually loads, and ablating the wrong copy
+// changes nothing.
+const nameGroups = new Map();
+for (const r of rows) {
+  if (!nameGroups.has(r.name)) nameGroups.set(r.name, []);
+  nameGroups.get(r.name).push(r);
+}
+const duplicateNames = [...nameGroups.entries()]
+  .filter(([, rs]) => rs.length > 1)
+  .map(([name, rs]) => ({ name, copies: rs.map((r) => ({ path: r.path, lines: r.lines })) }));
+
 const totals = {
   skills: rows.length,
   paths: rows.length + aliases.length,
   linkedDuplicates: aliases.length,
+  duplicateNames: duplicateNames.length,
   lines: rows.reduce((n, r) => n + r.lines, 0),
   contentLines: rows.reduce((n, r) => n + r.contentLines, 0),
   estTokens: rows.reduce((n, r) => n + r.estTokens, 0),
@@ -98,7 +112,8 @@ const totals = {
 
 if (argv.json) {
   process.stdout.write(`${JSON.stringify({
-    roots, totals, usage: usageStats, transcriptRoot: projectsDir(), aliases, skills: shown,
+    roots, totals, usage: usageStats, transcriptRoot: projectsDir(),
+    aliases, duplicateNames, skills: shown,
   }, null, 2)}\n`);
   process.exit(0);
 }
@@ -120,6 +135,17 @@ if (totals.linkedDuplicates) {
 }
 if (usageStats) {
   process.stdout.write(`transcripts: ${usageStats.files} files (${usageStats.parsed} parsed, ${usageStats.cached} cached), ${usageStats.invocations} skill invocations\n`);
+}
+if (duplicateNames.length) {
+  process.stdout.write(`\n${duplicateNames.length} skill name(s) exist as more than one separate file:\n`);
+  for (const d of duplicateNames) {
+    process.stdout.write(`  ${d.name}\n`);
+    for (const c of d.copies) process.stdout.write(`    ${String(c.lines).padStart(4)}l  ${c.path}\n`);
+  }
+  process.stdout.write(`\nOnly one copy of each is the one that loads, and the usage count shown is the
+same for every copy because invocations are recorded by name. Work out which
+copy is live before ablating anything -- editing a stale copy changes nothing,
+and differing line counts above mean these have already drifted apart.\n`);
 }
 if (totals.pruneCandidates) {
   const names = rows.filter((x) => x.pruneCandidate).map((x) => x.name);
