@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/maestro-ablate-banner.svg" alt="Maestro: Ablate" width="100%" />
+  <img src="assets/maestro-ablate-banner.png" alt="Maestro: Ablate — a Maestro mascot conducts a skill-ablation experiment, retaining its core while removing noise" width="100%" />
 </p>
 
 <h1 align="center">Maestro: Ablate</h1>
