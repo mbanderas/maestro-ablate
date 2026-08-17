@@ -1,0 +1,58 @@
+{
+  "name": "@maestroablate/ablate",
+  "version": "1.0.0",
+  "description": "Install Maestro: Ablate, the audit that shows which parts of a skill earn their tokens and rebuilds the skill without the rest.",
+  "type": "module",
+  "bin": {
+    "ablate": "scripts/install.mjs"
+  },
+  "files": [
+    ".agents/plugins/marketplace.json",
+    ".claude-plugin/marketplace.json",
+    ".claude-plugin/plugin.json",
+    ".codex-plugin/plugin.json",
+    "assets",
+    "DISCLAIMER.md",
+    "LICENSE",
+    "PRIVACY.md",
+    "README.md",
+    "SECURITY.md",
+    "THIRD_PARTY_NOTICES.md",
+    "scripts/install.mjs",
+    "skills/ablate"
+  ],
+  "scripts": {
+    "check": "npm run validate && npm test",
+    "validate": "node scripts/validate.mjs",
+    "test": "node --test"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mbanderas/maestro-ablate.git"
+  },
+  "homepage": "https://github.com/mbanderas/maestro-ablate#readme",
+  "bugs": {
+    "url": "https://github.com/mbanderas/maestro-ablate/issues"
+  },
+  "author": "Mark Laursen",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "keywords": [
+    "agent-skills",
+    "maestro",
+    "ablate",
+    "ablation",
+    "skill-audit",
+    "context-engineering",
+    "token-budget",
+    "prompt-engineering",
+    "evaluation",
+    "codex",
+    "claude-code"
+  ]
+}

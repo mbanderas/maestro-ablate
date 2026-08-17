@@ -1,0 +1,25 @@
+{
+  "name": "maestro-ablate",
+  "version": "1.0.0",
+  "displayName": "Maestro: Ablate",
+  "description": "Use /ablate to find which parts of a SKILL.md earn their tokens, then rebuild the skill without the rest.",
+  "author": {
+    "name": "Mark Laursen",
+    "url": "https://github.com/mbanderas"
+  },
+  "homepage": "https://github.com/mbanderas/maestro-ablate",
+  "repository": "https://github.com/mbanderas/maestro-ablate",
+  "license": "MIT",
+  "keywords": [
+    "agent-skills",
+    "ablate",
+    "ablation",
+    "skill-audit",
+    "context-engineering",
+    "token-budget",
+    "prompt-engineering",
+    "context-window",
+    "evaluation",
+    "claude-code"
+  ]
+}

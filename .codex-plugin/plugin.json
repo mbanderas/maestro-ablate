@@ -1,0 +1,44 @@
+{
+  "name": "maestro-ablate",
+  "version": "1.0.0",
+  "description": "Maestro: Ablate measures which sections of a SKILL.md are load-bearing and rebuilds the skill without the rest.",
+  "author": {
+    "name": "Mark Laursen",
+    "url": "https://github.com/mbanderas"
+  },
+  "homepage": "https://github.com/mbanderas/maestro-ablate#readme",
+  "repository": "https://github.com/mbanderas/maestro-ablate",
+  "license": "MIT",
+  "keywords": [
+    "ablate",
+    "ablation",
+    "skill-audit",
+    "context-engineering",
+    "token-budget",
+    "prompt-engineering",
+    "context-window",
+    "evaluation",
+    "codex",
+    "skills"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Maestro: Ablate",
+    "shortDescription": "Cut skills down to what is load-bearing",
+    "longDescription": "Install Maestro: Ablate to inventory your skills, audit a SKILL.md against a written rubric, and run a measured ablation loop that proves which sections a skill actually needs before anything is cut.",
+    "developerName": "Mark Laursen",
+    "category": "Productivity",
+    "capabilities": [
+      "Interactive",
+      "Write"
+    ],
+    "websiteURL": "https://github.com/mbanderas/maestro-ablate",
+    "privacyPolicyURL": "https://github.com/mbanderas/maestro-ablate/blob/main/PRIVACY.md",
+    "brandColor": "#F59E0B",
+    "defaultPrompt": [
+      "Use /ablate to rank my skills by how much context they cost.",
+      "Use /ablate to audit this SKILL.md and show me the diff before anything is written.",
+      "Use /ablate to measure which sections of this skill are load-bearing."
+    ]
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "name": "maestro-ablate",
+  "description": "Self-hosted marketplace for Maestro: Ablate, an evidence-backed audit that shows which parts of a skill are load-bearing.",
+  "owner": {
+    "name": "Mark Laursen",
+    "url": "https://github.com/mbanderas"
+  },
+  "plugins": [
+    {
+      "name": "maestro-ablate",
+      "source": "./",
+      "description": "Measure which sections of a SKILL.md earn their tokens, then rebuild the skill without the rest."
+    }
+  ]
+}
