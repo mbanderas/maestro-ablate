@@ -77,7 +77,7 @@ Requires **Node ≥ 20** (developed on v24.12.0) and the `claude` CLI on your `P
 Clone straight into place:
 
 ```sh
-git clone https://github.com/<you>/skill-ablation ~/.claude/skills/skill-ablation
+git clone https://github.com/mbanderas/skill-ablation ~/.claude/skills/skill-ablation
 ```
 
 The repository root *is* the skill, so that is all it takes.
@@ -96,6 +96,42 @@ New-Item -ItemType Junction -Path "$HOME\.claude\skills\skill-ablation" -Target 
 ```
 
 Then ask Claude Code to audit a skill, or invoke it by name.
+
+### Verify the install
+
+Phase A needs nothing but the scripts. Before trusting **Phase B**, run the fixture check in
+[`fixtures/README.md`](fixtures/README.md). It is a deliberately trivial skill whose every rule is
+arbitrary, so a run that answers correctly can only have read the skill body — which is what makes
+it a usable positive control. Expect six `PASS` lines.
+
+Do this again after any `claude` CLI upgrade. The isolation this depends on is not documented API,
+and it has already changed shape once: see [`SPIKE.md`](SPIKE.md), which records what was measured
+and why labs are placed where they are.
+
+## What's in here
+
+```
+SKILL.md                  what Claude reads (under 100 lines, on purpose)
+scripts/
+  inventory.mjs           rank targets by lines x recorded usage
+  sections.mjs            split a SKILL.md into addressable sections
+  apply.mjs               rebuild it: keep / drop / extract
+  report.mjs              before/after delta and the cumulative log
+  labinit.mjs             build the clean room
+  stub.mjs                set the lab to a chosen section subset
+  run.mjs                 the only thing that starts a claude process
+references/               rubric, classification, protocol, bar template
+fixtures/                 the positive-control fixture
+```
+
+## A note on the lab
+
+Phase B runs headless `claude` processes in an isolated lab. To authenticate, the lab holds **a
+copy of your Claude credentials** in `<lab>/config/`. Permissions are restricted to your user
+account, and `labinit.mjs` verifies the copy is readable before going further.
+
+Delete labs when you are finished with them. The path is printed at the end of every `labinit`
+run, and `labinit --clean` removes an existing one.
 
 ## Honest limits
 

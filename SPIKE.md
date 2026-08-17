@@ -149,7 +149,9 @@ Nested `claude -p` works.
 **Spawn mode.** On this machine `claude` is a native `.exe`, so `shell: false` works directly;
 `shell: true` also works. Both were tested and both resolve the skill and authenticate. Since
 other install methods do put a `.cmd` shim on `PATH` — which `shell: false` cannot execute on
-Windows — `run.mjs` should use `shell: true` on Windows and `shell: false` elsewhere.
+Windows — `run.mjs` attempts a direct spawn and falls back to shell mode only when the process
+cannot be started at all. That keeps the common path free of shell quoting entirely while still
+supporting shim installs.
 
 **The prompt must go over stdin, not argv.** This is the correction. Shell-mode spawn
 concatenates arguments without escaping (Node `DEP0190`). A multi-line prompt containing quotes
@@ -182,11 +184,24 @@ effect on a nested run is undocumented and version-dependent.
 | `CLAUDE_CONFIG_DIR` | `<lab>/config` | suppresses user skills, settings, hooks, MCP |
 | config seed | `.credentials.json`, minimal `settings.json`, `.claude.json` | §4 — auth and onboarding |
 | prompt channel | child stdin | §5 — argv mangling under shell-mode spawn |
-| `shell:` | `true` on Windows, `false` elsewhere | `.cmd` shim installs |
+| `shell:` | direct spawn first, shell mode only if the process cannot start | native binary needs no shell; `.cmd` shim installs cannot run without one |
 | env | strip `/^CLAUDE/i` and `/^ANTHROPIC/i`, then set `CLAUDE_CONFIG_DIR` | §5 |
 | args | `-p --output-format json --model <id> --permission-mode bypassPermissions` | JSON gives `session_id`, `is_error`, `total_cost_usd` |
 | skill-fired assertion | `Skill` tool_use record with matching `input.skill` in the transcript | §1 |
 | redirection assertion | transcript written under `<config>/projects/` | §4 |
+
+## Scope of this document
+
+Everything above concerns isolating a run from the *user's own configuration* — memory, skills,
+settings, hooks, MCP servers. That is one of two isolation problems, and the smaller one.
+
+The other is isolating runs from **each other and from the lab**: a run has filesystem tools, and
+a stub run in particular has every incentive to go looking for the instructions it is missing.
+That problem was found later, during rig validation, and it is documented in
+[`fixtures/README.md`](fixtures/README.md) — a stub run passed by reading two earlier control runs'
+output files, and a grading call un-blinded itself by reading the lab. The design consequences
+(per-run ephemeral working directories, located off the lab root, and a grader with no tools) are
+in `scripts/lib/lab.mjs`.
 
 ## Residual risks
 
