@@ -6,7 +6,7 @@
 
 import fs from 'node:fs';
 import path from 'node:path';
-import { execFileSync } from 'node:child_process';
+import { execSync } from 'node:child_process';
 import { parseArgv, fail } from './lib/args.mjs';
 import { resolveSkill } from './lib/paths.mjs';
 import { fileMetrics } from './lib/md.mjs';
@@ -138,11 +138,15 @@ const unverifiedDrops = dropped.filter((d) => d.evidence.length === 0).map((d) =
 
 const phase = argv.phase ?? applyRecord?.phase ?? (manifest ? 'B' : 'A');
 
+// The CLI version is recorded alongside the model id: a result measured against
+// one harness version is not automatically valid against the next. Passed as a
+// single command string rather than argv + shell, which avoids Node's unescaped
+// argument concatenation entirely.
 let cliVersion = manifest?.cliVersion ?? null;
 if (!cliVersion) {
   try {
-    cliVersion = execFileSync('claude', ['--version'], {
-      encoding: 'utf8', timeout: 10_000, shell: process.platform === 'win32',
+    cliVersion = execSync('claude --version', {
+      encoding: 'utf8', timeout: 10_000, stdio: ['ignore', 'pipe', 'ignore'],
     }).trim();
   } catch { cliVersion = null; }
 }
