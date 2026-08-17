@@ -112,7 +112,7 @@ full. The flag gates *settings* files, not memory files.
 
 `run.mjs`/`labinit.mjs` must default the lab root to a path that is not under `os.homedir()`:
 
-- **Windows:** `%SystemDrive%\skill-ablation-labs` — confirmed creatable and writable without
+- **Windows:** `%SystemDrive%\maestro-ablate-labs` — confirmed creatable and writable without
   elevation.
 - **macOS / Linux:** `os.tmpdir()` is already outside `$HOME` (`/tmp`, `/var/folders/…`), so the
   ordinary temp default is fine.
@@ -180,7 +180,7 @@ effect on a nested run is undocumented and version-dependent.
 
 | Parameter | Value | Why |
 |---|---|---|
-| lab root | outside `os.homedir()`; Windows `%SystemDrive%\skill-ablation-labs` | §3 — ancestor `.claude/CLAUDE.md` traversal |
+| lab root | outside `os.homedir()`; Windows `%SystemDrive%\maestro-ablate-labs` | §3 — ancestor `.claude/CLAUDE.md` traversal |
 | `CLAUDE_CONFIG_DIR` | `<lab>/config` | suppresses user skills, settings, hooks, MCP |
 | config seed | `.credentials.json`, minimal `settings.json`, `.claude.json` | §4 — auth and onboarding |
 | prompt channel | child stdin | §5 — argv mangling under shell-mode spawn |

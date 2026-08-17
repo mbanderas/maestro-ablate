@@ -334,7 +334,7 @@ function writeAtomic(target, content) {
 fs.copyFileSync(file, backup);
 for (const e of extractions) {
   const header = e.heading ? `# ${e.heading}\n\n` : '';
-  const note = `<!-- Extracted from ${skill}/SKILL.md by skill-ablation. -->\n\n`;
+  const note = `<!-- Extracted from ${skill}/SKILL.md by Maestro: Ablate. -->\n\n`;
   writeAtomic(e.target, `${header}${note}${e.body}\n`);
 }
 writeAtomic(file, rebuilt);

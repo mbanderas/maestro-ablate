@@ -39,7 +39,7 @@ if (argv.help || argv._.length === 0) {
 
 const lab = path.resolve(process.cwd(), argv._[0]);
 if (!isLab(lab)) {
-  fail(`${lab} is not a skill-ablation lab.
+  fail(`${lab} is not an ablate lab.
 
 This script rewrites a SKILL.md, so it only ever writes inside a lab built by
 labinit.mjs. Pointing it at a real skill directory would empty the skill you are

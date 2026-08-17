@@ -16,20 +16,20 @@ import { execSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
 import { configDir } from './paths.mjs';
 
-export const LAB_MARKER = '.skill-ablation-lab';
+export const LAB_MARKER = '.maestro-ablate-lab';
 
 /**
  * Default lab root, chosen to sit outside the home directory.
  *
- * Windows: `%SystemDrive%\skill-ablation-labs` (creatable without elevation).
+ * Windows: `%SystemDrive%\maestro-ablate-labs` (creatable without elevation).
  * Elsewhere: os.tmpdir(), which is already outside $HOME.
  */
 export function defaultLabRoot() {
   if (process.platform === 'win32') {
     const drive = process.env.SystemDrive || 'C:';
-    return path.join(`${drive}${path.sep}`, 'skill-ablation-labs');
+    return path.join(`${drive}${path.sep}`, 'maestro-ablate-labs');
   }
-  return path.join(os.tmpdir(), 'skill-ablation-labs');
+  return path.join(os.tmpdir(), 'maestro-ablate-labs');
 }
 
 /**

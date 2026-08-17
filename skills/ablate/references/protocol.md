@@ -260,6 +260,6 @@ they are near-identical, so the same sections are dead in each. Then verify each
 
 ## Self-ablation
 
-Do not run this loop on `skill-ablation` itself. Each of its tasks would be a full ablation of
+Do not run this loop on `ablate` itself. Each of its tasks would be a full ablation of
 another skill: recursive, and prohibitively expensive. Validate the rig on a small deterministic
 skill instead.

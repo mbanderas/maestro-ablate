@@ -17,7 +17,7 @@ export const SKIP_DIRS = new Set([
   'node_modules', 'worktrees', '.workshop-worktrees', '.git', '.cache', 'dist', 'build',
 ]);
 
-/** This skill's own root (the repo root, since the repo *is* the skill). */
+/** This skill's own root: `skills/ablate/`, two levels up from `scripts/lib/`. */
 export function skillRoot() {
   return path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
 }
@@ -46,7 +46,7 @@ export function projectsDir() {
  * Skill roots to scan, in priority order, deduplicated and existence-filtered.
  *
  * Defaults cover the two locations every Claude Code user has. Extra roots come
- * from `--root` or the SKILL_ABLATION_ROOTS environment variable (a
+ * from `--root` or the MAESTRO_ABLATE_ROOTS environment variable (a
  * platform-separated list), which is how a project with its own convention
  * points the inventory at it without this tool needing to know that convention.
  *
@@ -62,7 +62,7 @@ export function skillRoots({ cwd = process.cwd(), extra = [], includePlugins = f
     path.join(home, '.claude', 'skills'),
     path.join(cwd, '.claude', 'skills'),
   ];
-  const fromEnv = process.env.SKILL_ABLATION_ROOTS;
+  const fromEnv = process.env.MAESTRO_ABLATE_ROOTS;
   if (fromEnv && !only) {
     for (const p of fromEnv.split(path.delimiter)) {
       if (p.trim()) roots.push(path.resolve(cwd, p.trim()));

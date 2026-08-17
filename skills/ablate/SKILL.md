@@ -1,9 +1,9 @@
 ---
-name: skill-ablation
-description: Finds which parts of a SKILL.md earn their tokens and rebuilds the skill without the rest. Use when asked to ablate, audit, shrink, slim, or trim a skill, when skill bloat or per-session context cost comes up, or to work out which sections of a skill are load-bearing.
+name: ablate
+description: Use for /ablate and $ablate. Finds which parts of a SKILL.md earn their tokens and rebuilds the skill without the rest. Use when asked to ablate, audit, shrink, slim, or trim a skill, when skill bloat or per-session context cost comes up, or to work out which sections of a skill are load-bearing.
 ---
 
-# skill-ablation
+# Maestro: Ablate
 
 Two phases. **Phase A** is a static audit: one reasoning pass per skill, no trial runs, covers
 everything. **Phase B** is an empirical loop: baseline, stub, measured add-back, real `claude -p`

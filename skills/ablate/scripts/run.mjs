@@ -46,7 +46,7 @@ if (argv.help || argv._.length === 0) {
 }
 
 const lab = path.resolve(process.cwd(), argv._[0]);
-if (!isLab(lab)) fail(`${lab} is not a skill-ablation lab. Run labinit.mjs first.`);
+if (!isLab(lab)) fail(`${lab} is not an ablate lab. Run labinit.mjs first.`);
 const manifest = readManifest(lab);
 if (!manifest?.skill) fail(`${lab}/manifest.json is missing or has no "skill"`);
 const P = labPaths(lab, manifest.skill);

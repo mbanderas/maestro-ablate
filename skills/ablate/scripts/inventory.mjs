@@ -20,7 +20,7 @@ const USAGE = `Usage: node inventory.mjs [options]
   --no-usage      Skip the transcript scan (fast; ranks by lines alone).
   --quiet         Suppress progress output on stderr.
 
-Extra roots may also be set in SKILL_ABLATION_ROOTS as a ${JSON.stringify(path.delimiter)}-separated list.
+Extra roots may also be set in MAESTRO_ABLATE_ROOTS as a ${JSON.stringify(path.delimiter)}-separated list.
 `;
 
 const argv = parseArgv(process.argv.slice(2), {
