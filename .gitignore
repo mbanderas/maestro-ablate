@@ -1,0 +1,17 @@
+# usage cache and cumulative ablation log
+.cache/
+
+# labs kept with --lab
+labs/
+*-lab/
+
+# apply.mjs backups
+*.bak
+SKILL.md.pre-ablation.bak
+
+# local build tracker
+BUILD-STATE.md
+
+node_modules/
+.DS_Store
+Thumbs.db
