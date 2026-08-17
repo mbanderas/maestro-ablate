@@ -1,0 +1,27 @@
+{
+  "skill": "rig-check",
+  "classification": "deterministic",
+  "tasks": [
+    {
+      "id": "t1-manifest",
+      "workflow": "produces a rig-check manifest",
+      "gotcha": null,
+      "prompt": "Produce a rig-check manifest and write it to {{OUT}}/manifest.txt. Reply with just the path when you are done.",
+      "assert": [
+        { "type": "file-exists", "file": "manifest.txt" },
+        { "type": "file-contains", "file": "manifest.txt", "value": "RIG-CHECK v3" },
+        { "type": "file-contains", "file": "manifest.txt", "value": "TOKEN: QX7-ZEBRA-1194" },
+        { "type": "file-contains", "file": "manifest.txt", "value": "COUNT: 14" }
+      ]
+    },
+    {
+      "id": "t2-token",
+      "workflow": "produces a rig-check token",
+      "gotcha": null,
+      "prompt": "What is the rig-check token? Reply with the token and nothing else.",
+      "assert": [
+        { "type": "contains", "value": "QX7-ZEBRA-1194" }
+      ]
+    }
+  ]
+}
