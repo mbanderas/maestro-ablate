@@ -96,9 +96,15 @@ function checkGit() {
            reason: dirty.length ? `uncommitted changes under ${skillDir}:\n  ${dirty.join('\n  ')}` : null };
 }
 
+// The guard exists because this script rewrites files. --dry-run rewrites nothing,
+// so requiring a rollback path for it would only stop people from looking before
+// they commit -- which is the order you actually want. It still reports what the
+// guard would have said, so the requirement is not a surprise later.
 const gitState = checkGit();
 if (!gitState.ok) {
-  if (!argv.force) {
+  if (argv['dry-run']) {
+    process.stderr.write(`note: ${gitState.reason}\n      --dry-run writes nothing, so this is not blocking. It will block a real run.\n`);
+  } else if (!argv.force) {
     fail(`${gitState.reason}
 
 This tool destructively rewrites SKILL.md files, and a skills directory
@@ -109,9 +115,11 @@ typically has no version control at all. Commit first so you can get back:
   git add -A
   git commit -m "chore: snapshot skills before ablation"
 
-Then re-run. Use --force to proceed without a rollback path.`);
+Then re-run. Use --force to proceed without a rollback path, or --dry-run to
+preview without writing.`);
+  } else {
+    process.stderr.write(`warning: proceeding without a clean rollback point (--force)\n`);
   }
-  process.stderr.write(`warning: proceeding without a clean rollback point (--force)\n`);
 }
 if (gitState.ok && gitState.otherDirty > 0) {
   process.stderr.write(`note: ${gitState.otherDirty} uncommitted change(s) elsewhere in ${gitState.top}; ${skill}'s own files are clean\n`);
