@@ -1,5 +1,11 @@
 // Minimal argv parser. No dependencies by design.
 
+// Piping output into `head`, `Select-Object -First n`, or a closed pager closes
+// stdout early. Without this the next write raises an unhandled EPIPE and the
+// script dies with a stack trace, which looks like a bug in the tool.
+process.stdout.on('error', (e) => { if (e.code !== 'EPIPE') throw e; });
+process.stderr.on('error', (e) => { if (e.code !== 'EPIPE') throw e; });
+
 /**
  * Parse argv into { _: positionals, ...flags }.
  *

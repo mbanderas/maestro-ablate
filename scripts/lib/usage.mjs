@@ -54,7 +54,7 @@ export function transcriptFiles(root = projectsDir()) {
  * (`plugin:skill`) is credited to both the qualified and the bare name, because
  * the skill on disk is the bare one.
  */
-function collectFromRecord(node, into, depth = 0) {
+export function collectFromRecord(node, into, depth = 0) {
   if (depth > 8 || node === null || typeof node !== 'object') return;
   if (Array.isArray(node)) {
     for (const item of node) collectFromRecord(item, into, depth + 1);
@@ -71,6 +71,24 @@ function collectFromRecord(node, into, depth = 0) {
   for (const key of ['message', 'content', 'toolUseResult', 'input']) {
     if (key in node) collectFromRecord(node[key], into, depth + 1);
   }
+}
+
+/**
+ * Every skill invoked in one transcript, in order. This is what the skill-fired
+ * positive control checks: if the control run's transcript does not name the
+ * skill under test, the run measured nothing and its result is meaningless.
+ */
+export function skillsInTranscript(file) {
+  let text;
+  try { text = fs.readFileSync(file, 'utf8'); } catch { return []; }
+  const out = [];
+  for (const line of text.split('\n')) {
+    if (!line.includes(NEEDLE)) continue;
+    let rec;
+    try { rec = JSON.parse(line); } catch { continue; }
+    collectFromRecord(rec, out);
+  }
+  return out;
 }
 
 function scanFile(file) {
