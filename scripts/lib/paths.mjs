@@ -54,14 +54,16 @@ export function projectsDir() {
  * vendor-maintained, and the right move on a vendor file is to re-pin it from
  * upstream, not to ablate it.
  */
-export function skillRoots({ cwd = process.cwd(), extra = [], includePlugins = false } = {}) {
+export function skillRoots({ cwd = process.cwd(), extra = [], includePlugins = false, only = false } = {}) {
   const home = os.homedir();
-  const roots = [
+  // `only` drops the defaults, so a single repo can be audited on its own instead
+  // of alongside the whole user-level roster.
+  const roots = only ? [] : [
     path.join(home, '.claude', 'skills'),
     path.join(cwd, '.claude', 'skills'),
   ];
   const fromEnv = process.env.SKILL_ABLATION_ROOTS;
-  if (fromEnv) {
+  if (fromEnv && !only) {
     for (const p of fromEnv.split(path.delimiter)) {
       if (p.trim()) roots.push(path.resolve(cwd, p.trim()));
     }

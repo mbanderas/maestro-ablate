@@ -14,6 +14,7 @@ const USAGE = `Usage: node inventory.mjs [options]
 
   --root <path>   Additional skill root to scan (repeatable).
   --plugins       Also scan ~/.claude/plugins (vendor-maintained; re-pin, do not ablate).
+  --only          Use only the --root paths given, dropping the default roots.
   --top <n>       Show only the top N rows.
   --json          Emit JSON instead of a table.
   --no-usage      Skip the transcript scan (fast; ranks by lines alone).
@@ -25,11 +26,11 @@ Extra roots may also be set in SKILL_ABLATION_ROOTS as a ${JSON.stringify(path.d
 const argv = parseArgv(process.argv.slice(2), {
   repeat: ['root'],
   string: ['top'],
-  boolean: ['plugins', 'json', 'no-usage', 'quiet', 'help'],
+  boolean: ['plugins', 'only', 'json', 'no-usage', 'quiet', 'help'],
 });
 if (argv.help) { process.stdout.write(USAGE); process.exit(0); }
 
-const roots = skillRoots({ extra: argv.root, includePlugins: argv.plugins });
+const roots = skillRoots({ extra: argv.root, includePlugins: argv.plugins, only: argv.only });
 if (roots.length === 0) fail('no skill roots found. Pass --root <path>.');
 
 // Collect skills, deduplicated by real path: linking a skill directory into
