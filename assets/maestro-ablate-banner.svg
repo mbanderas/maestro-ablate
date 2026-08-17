@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1774 887" width="1774" height="887" role="img" aria-label="Maestro: Ablate — measure what a skill is actually made of">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0B0D10"/>
+      <stop offset="1" stop-color="#15181D"/>
+    </linearGradient>
+    <linearGradient id="edge" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#F59E0B" stop-opacity="0"/>
+      <stop offset="0.5" stop-color="#F59E0B" stop-opacity="0.9"/>
+      <stop offset="1" stop-color="#F59E0B" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1774" height="887" fill="url(#bg)"/>
+  <rect y="884" width="1774" height="3" fill="url(#edge)"/>
+
+  <g transform="translate(120 300)" fill="#F5F6F7" font-family="Inter, 'Segoe UI', Helvetica, Arial, sans-serif">
+    <text x="0" y="0" font-size="30" letter-spacing="8" fill="#F59E0B" font-weight="600">MAESTRO</text>
+    <text x="0" y="112" font-size="112" font-weight="700" letter-spacing="-2">Ablate</text>
+    <text x="0" y="182" font-size="34" fill="#9BA3AE">Find out what a skill is actually made of.</text>
+    <text x="0" y="244" font-size="34" fill="#9BA3AE">Keep that. Drop the rest.</text>
+  </g>
+
+  <g transform="translate(1010 210)">
+    <rect x="0" y="0" width="644" height="34" rx="8" fill="#F59E0B"/>
+    <rect x="0" y="56" width="520" height="34" rx="8" fill="#2A2F37"/>
+    <rect x="0" y="112" width="600" height="34" rx="8" fill="#F59E0B" opacity="0.55"/>
+    <rect x="0" y="168" width="470" height="34" rx="8" fill="#2A2F37"/>
+    <rect x="0" y="224" width="560" height="34" rx="8" fill="#2A2F37"/>
+    <rect x="0" y="280" width="644" height="34" rx="8" fill="#F59E0B"/>
+    <rect x="0" y="336" width="500" height="34" rx="8" fill="#2A2F37"/>
+    <rect x="0" y="392" width="590" height="34" rx="8" fill="#F59E0B" opacity="0.55"/>
+    <rect x="0" y="448" width="440" height="34" rx="8" fill="#2A2F37"/>
+
+    <g stroke="#5A626E" stroke-width="2" stroke-linecap="round">
+      <line x1="0" y1="73" x2="520" y2="73"/>
+      <line x1="0" y1="185" x2="470" y2="185"/>
+      <line x1="0" y1="241" x2="560" y2="241"/>
+      <line x1="0" y1="353" x2="500" y2="353"/>
+      <line x1="0" y1="465" x2="440" y2="465"/>
+    </g>
+  </g>
+</svg>
